@@ -1,0 +1,26 @@
+
+<div *ngIf="accountService.currentUser$|async as user" class="card pmd-card bg-dark text-white">
+    <div class="card-body">   
+    <div class="container">
+    
+        <div class="d-flex flex-column align-items- flex-shrink-0 bg-white">
+            <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+              <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+              <span (click)="navigate()" class="fs-5 fw-semibold "> <h1>Known Words  &nbsp; </h1></span>
+            </div>>
+                <div *ngFor="let word of knownWords" class="list-group list-group-flush border-bottom scrollarea">
+                    <div class="list-group-item list-group-item-action py-3 lh-tight">
+                      <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="mb-1 ">{{word.word|titlecase}} </strong>
+                        &nbsp;<button type="submit" ng (click)="deleted(word.word,user.id)" class="btn btn-danger mb-2">delete</button>
+                    </div>
+                      
+    
+                    </div>
+                </div>
+                </div>
+            </div>
+       
+    </div>
+    </div>
+    

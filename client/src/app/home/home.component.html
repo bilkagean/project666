@@ -1,0 +1,45 @@
+  
+<div class="container mt-5">
+    <div *ngIf="!registerMode" style='text-align: center;'>
+        <h1>Find your unknown words in a text</h1>
+        <p class="lead">Come on in to add new words to your memory... all you need to do is sign up!</p>
+        
+        <div class="text-center">
+            <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
+             &nbsp;
+        </div>
+    </div>
+
+    <div *ngIf="registerMode" class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <app-register (cancelRegister)="cancelRegisterMode($event)" ></app-register>
+            </div>
+        </div>
+    </div>
+    &nbsp;
+    &nbsp;
+    <div   class="card pmd-card bg-dark text-white">
+        <div class="card-body">
+            <h1> Daily Reading</h1>
+ <p>  Yet each man kills the thing he loves,
+By each let this be heard,
+Some do it with a bitter look,
+Some with a flattering word,
+The coward does it with a kiss,
+The brave man with a sword!
+Some kill their love when they are young,
+And some when they are old;
+Some strangle with the hands of Lust,
+Some with the hands of Gold:
+The kindest use a knife, because
+The dead so soon grow cold.
+Some love too little, some too long,
+Some sell, and others buy;
+Some do the deed with many tears,
+And some without a sigh:
+For each man kills the thing he loves,
+Yet each man does not die. </p>
+        </div>
+    </div>
+</div>

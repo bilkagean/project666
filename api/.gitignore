@@ -1,0 +1,7 @@
+
+*dll
+*pdb
+*exe
+*cache
+api/bin/Debug/net5.0/api.deps.json
+api/obj/project.nuget.cache

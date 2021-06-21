@@ -22,6 +22,8 @@ namespace api.Controllers
             _mapper = mapper;
         }
 
+        char[] seps= {'0', '1','2','3','4','5','6','7','8','9',' ','%','&','-','*','/','#','$', '?', '!', '.', ',' ,';', ':', '-', '(', ')', '[', ']', '}', '{', '\t', '\n', '\'', '\"', '\\', '\0', '\a', '\b','\f','\n','\t','\v'};
+
         [HttpPost("save")]
         public async Task<ActionResult<UserDto>> WordsAdder(NewWordsDto newWordsDto )
         { 
@@ -94,6 +96,20 @@ namespace api.Controllers
               _context.SaveChanges();  
               return "Record has successfully Deleted";  
     } 
+
+         [HttpPost("gettext")] ////////burada çalış
+        public async Task<ActionResult<string[]>> WordsAdder(string textstring, int userid )
+        {
+           string x = textstring;
+           x.ToLower();
+           string[]userknownwords=_context.Words.Where(u => u.AppUserId == userid && u.known == true).Select(x => x.Word).ToArray();         //get user knownwords by id 
+           string[]y=x.Split(seps, System.StringSplitOptions.RemoveEmptyEntries);
+           y.Except(userknownwords);
+           
+           return y;
+           
+        }
+        
 
         private async Task<bool> WordAlready(string word, int id)
         {

@@ -19,13 +19,13 @@ const routes: Routes = [
   canActivate:[AuthGuard],
   children:
   [
-    {path:'lists', component: ListsComponent},
-    {path:'messages', component: MessagesComponent},
+    {path:'main', component: ListsComponent},
+    {path:'words', component: MessagesComponent},
     {path:'knownWords', component:KnownWordsComponent}, 
   ]
 },
 {path: 'errors', component:TestErrorsComponent},
-{path: 'not-found', component:NotFoundComponent},
+{path: 'not-found', component:HomeComponent},
 {path: 'server-error', component:ServerErrorComponent},
 {path:'**', component:NotFoundComponent, pathMatch:'full'},
 ];

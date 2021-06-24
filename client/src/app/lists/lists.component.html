@@ -1,12 +1,14 @@
+<H1> Do not forget to check My Words after you done here </H1>  
 <div   class="card pmd-card bg-dark text-white">
-  <div class="card-body">   
+  <div class="card-body"> 
+   
 <form  #textForm="ngForm"  autocomplete="off">
      <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label" >
 	     <label >Your text goes here</label>
 	      <textarea rows="15"  name="textarea" [(ngModel)]="textarea" required class="form-control"></textarea>
               &nbsp;  
         <div class="form-group text-center">
-            <button (click)="getText(textarea)" class="btn btn-success mr-2" type="submit">Add Words</button>
+            <button (click)="getTextAlternative(textarea,user.id)"  class="btn btn-success mr-2" type="submit">Add Words</button>
               
            
         </div>
@@ -16,10 +18,12 @@
       <div class="card-body">   
       <div class="container">
           <div class="d-flex flex-column align-items- flex-shrink-0 bg-white">
-                  <div *ngFor="let word of wordsWords" class="list-group list-group-flush border-bottom scrollarea">
+                  <div *ngFor="let word of thing" class="list-group list-group-flush border-bottom scrollarea">
                       <div class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-center">
-                          <strong class="mb-1">{{word|titlecase}}</strong>
+                        <div 
+                        class="d-flex w-100 align-items-center justify-content-center">
+                        
+                        <strong class="mb-1">{{word|titlecase}}</strong>
                         </div>
                         <div class="mb-1">
                           &nbsp;
@@ -57,7 +61,6 @@
                      </div>
                   </div>
               </div>
-         
       </div>
       </div>
 </div>

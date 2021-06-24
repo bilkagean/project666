@@ -22,7 +22,7 @@ namespace api.Controllers
             _mapper = mapper;
         }
 
-        char[] seps= {'0', '1','2','3','4','5','6','7','8','9',' ','%','&','-','*','/','#','$', '?', '!', '.', ',' ,';', ':', '-', '(', ')', '[', ']', '}', '{', '\t', '\n', '\'', '\"', '\\', '\0', '\a', '\b','\f','\n','\t','\v'};
+        char[] seps= {'0', '1','2','3','4','5','6','7','8','9',' ','%','&','-','*','/','#','$', '?', '!', '.', ',' ,';', ':','<','>' ,'-', '(', ')', '[', ']', '}', '{', '\t', '\n', '\'', '\"', '\\', '\0', '\a', '\b','\f','\n','\t','\v'};
 
         [HttpPost("save")]
         public async Task<ActionResult<UserDto>> WordsAdder(NewWordsDto newWordsDto )
@@ -36,7 +36,7 @@ namespace api.Controllers
                 Words words = new Words
                 {
                     AppUserId = newWordsDto.UserId,
-                    Word = newWordsDto.word,
+                    Word = newWordsDto.word.ToLower(),
                     known =  newWordsDto.known
                 };
                 _context.Words.Add(words);
@@ -44,6 +44,18 @@ namespace api.Controllers
             };
             return Ok();
         }
+        [HttpPost("gettext")] ////////burada çalış
+        public async Task<ActionResult<string[]>> WordsAdder(altSendGetFromClientDto stringAndIdDto)
+        {
+           string x = stringAndIdDto.textstring;
+           x=x.ToLower();
+           string[]userknownwords=_context.Words.Where(u => u.AppUserId == stringAndIdDto.userid && u.known == true).Select(x => x.Word).ToArray();
+           string[]y=x.Split(seps, System.StringSplitOptions.RemoveEmptyEntries);
+           var xy=y.ToList().Except(userknownwords.ToList());
+
+          return xy.ToArray() ;           
+        }
+
         [HttpGet("known/{UserId}")]
         public async Task<ActionResult<IEnumerable<GetWordsDto>>> GetWordsKnown(int UserId)
         {
@@ -89,7 +101,7 @@ namespace api.Controllers
             return Ok();
         }      
          [HttpDelete("update/delete/{word}/{UserId}")]
-       public string DeleteEmploye(int UserId, string word) 
+       public string DeleteWord(int UserId, string word) 
        {  
               Words wordD = _context.Words.Where(x => x.AppUserId == UserId&&x.Word==word&&x.known==true).Single < Words > ();  
               _context.Words.Remove(wordD);  
@@ -97,18 +109,7 @@ namespace api.Controllers
               return "Record has successfully Deleted";  
     } 
 
-         [HttpPost("gettext")] ////////burada çalış
-        public async Task<ActionResult<string[]>> WordsAdder(string textstring, int userid )
-        {
-           string x = textstring;
-           x.ToLower();
-           string[]userknownwords=_context.Words.Where(u => u.AppUserId == userid && u.known == true).Select(x => x.Word).ToArray();         //get user knownwords by id 
-           string[]y=x.Split(seps, System.StringSplitOptions.RemoveEmptyEntries);
-           y.Except(userknownwords);
-           
-           return y;
-           
-        }
+        
         
 
         private async Task<bool> WordAlready(string word, int id)

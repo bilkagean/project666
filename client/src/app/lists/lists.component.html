@@ -1,4 +1,3 @@
-<H1> Do not forget to check My Words after you done here </H1>  
 <div   class="card pmd-card bg-dark text-white">
   <div class="card-body"> 
    
@@ -8,7 +7,11 @@
 	      <textarea rows="15"  name="textarea" [(ngModel)]="textarea" required class="form-control"></textarea>
               &nbsp;  
         <div class="form-group text-center">
-            <button (click)="getTextAlternative(textarea,user.id)"(click)="getTextAlternative(textarea,user.id)"  class="btn btn-success mr-2" type="submit">Add Words</button>
+            <button *ngIf="showaddwords()" (click)="getTextAlternative(textarea,user.id)"(click)="getTextAlternative(textarea,user.id)"  class="btn btn-success mr-2" type="submit">Add Words</button>
+            <button *ngIf="!showaddwords()" (click)="setcwords" class="btn btn-danger mr-2" type="submit">Show unknown words</button>
+            <br>
+            <br>
+      <h3 class=" mr-2"> Found {{counter}} unknown words in this text</h3>
               
            
         </div>
@@ -16,16 +19,16 @@
     </form>
     <div *ngIf="accountService.currentUser$|async as user" class="card pmd-card bg-dark text-white">
       <div class="card-body">   
-      <div class="container">
+      <div  class="container">
           <div class="d-flex flex-column align-items- flex-shrink-0 bg-white">
-                  <div *ngFor="let word of thing" class="list-group list-group-flush border-bottom scrollarea">
-                      <div class="list-group-item list-group-item-action py-3 lh-tight">
+                  <div *ngFor="let word of thing"class="list-group list-group-flush border-bottom scrollarea">
+                      <div  *ngFor="let word of setcounterwords"  class="list-group-item list-group-item-action py-3 lh-tight">
                         <div 
                         class="d-flex w-100 align-items-center justify-content-center">
                         
                         <strong class="mb-1">{{word|titlecase}}</strong>
                         </div>
-                        <div class="mb-1">
+                        <div class="mb-1"> <!-- nbsp ler garip duruyor biliyorum ancak, text align item align ne yapsam ortalayamadım, bu çözümü buldum sıihirli bir şekilde bu garip düzende olunca ortalanmış oluyor.-->
                           &nbsp;
                           &nbsp; &nbsp;
                           &nbsp; &nbsp;
@@ -55,13 +58,14 @@
                           &nbsp; &nbsp;
                           &nbsp;
                           &nbsp;
-             <button  type="submit"  (click)="addWords(word,user.id,false)" class="btn btn-danger mb-2">unknown</button>
+             <button  type="submit"  (click)="addWords(word,user.id,false)" (click)="countunknownwords(word)" class="btn btn-danger mb-2">unknown</button>
         </div>
+
       </div>
                      </div>
                   </div>
               </div>
       </div>
-      </div>
+      </div>    
 </div>
 </div>
